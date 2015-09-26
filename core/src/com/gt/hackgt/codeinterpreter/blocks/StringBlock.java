@@ -1,6 +1,8 @@
-package com.gt.hackgt.blocks;
+package com.gt.hackgt.codeinterpreter.blocks;
 
-import com.gt.hackgt.blocks.exceptions.VariableDefinedException;
+import com.gt.hackgt.codeinterpreter.DataObject;
+import com.gt.hackgt.codeinterpreter.exceptions.VariableDefinedException;
+import com.gt.hackgt.gameobject.GameObject;
 
 import java.util.Map;
 import java.util.Set;
@@ -11,7 +13,8 @@ import java.util.Set;
 public class StringBlock extends BasicBlock {
     private String value;
 
-    public StringBlock(String val) {
+    public StringBlock(GameObject gameObject, String val) {
+        super(gameObject);
         value = val;
     }
 

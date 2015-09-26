@@ -1,8 +1,10 @@
-package com.gt.hackgt.blocks;
+package com.gt.hackgt.codeinterpreter.blocks;
 
-import com.gt.hackgt.blocks.exceptions.IncompatibleTypesException;
-import com.gt.hackgt.blocks.exceptions.MissingBlockException;
-import com.gt.hackgt.blocks.exceptions.VariableDefinedException;
+import com.gt.hackgt.codeinterpreter.DataObject;
+import com.gt.hackgt.codeinterpreter.exceptions.IncompatibleTypesException;
+import com.gt.hackgt.codeinterpreter.exceptions.MissingBlockException;
+import com.gt.hackgt.codeinterpreter.exceptions.VariableDefinedException;
+import com.gt.hackgt.gameobject.GameObject;
 
 import java.util.*;
 
@@ -17,6 +19,11 @@ public abstract class BasicBlock {
     protected BasicBlock internalBlock;
     protected BasicBlock secondInternalBlock;
     protected BasicBlock nextBlock;
+    protected GameObject associatedObject;
+
+    public BasicBlock(GameObject associatedObject) {
+        this.associatedObject = associatedObject;
+    }
 
     public abstract void draw();
 
@@ -81,43 +88,4 @@ public abstract class BasicBlock {
     }
 
     public abstract String toString();
-
-    public static void main(String[] args) {
-        List<BasicBlock> list = new ArrayList<BasicBlock>();
-        IntAssignmentBlock aBlock = new IntAssignmentBlock("A");
-        aBlock.setInternalBlock(new IntBlock(5));
-        IntAssignmentBlock bBlock = new IntAssignmentBlock("B");
-        IntMathBlock mult = new IntMathBlock(IntMathBlock.MULTIPLY);
-        mult.setInternalBlock(new IntBlock(3));
-        IntMathBlock add = new IntMathBlock(IntMathBlock.PLUS);
-        add.setInternalBlock(new IntBlock(1));
-        add.setSecondInternalBlock(new IntBlock(2));
-        mult.setSecondInternalBlock(add);
-        bBlock.setInternalBlock(mult);
-        list.add(aBlock);
-        list.add(bBlock);
-        Set<String> definedVars = new HashSet<String>();
-        Map<String, Integer> intVars = new HashMap<String, Integer>();
-        for (BasicBlock b : list) {
-            try {
-                b.execute(definedVars, intVars, null);
-            } catch (VariableDefinedException e) {
-                e.printStackTrace();
-            } catch (IncompatibleTypesException e) {
-                e.printStackTrace();
-            } catch (MissingBlockException e) {
-                e.printStackTrace();
-            }
-        }
-
-        System.out.println("Defined vars");
-        for (String s : definedVars) {
-            System.out.println(s);
-        }
-
-        System.out.println("\nValues");
-        for (String s : intVars.keySet()) {
-            System.out.println(s + " : " + intVars.get(s));
-        }
-    }
 }

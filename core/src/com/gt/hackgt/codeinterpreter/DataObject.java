@@ -1,7 +1,7 @@
-package com.gt.hackgt.blocks;
+package com.gt.hackgt.codeinterpreter;
 
 /**
- * Represents the data that is passed between blocks.
+ * Represents the data that is passed between codeinterpreter.
  */
 public class DataObject {
     public static final int NULL_TYPE = 0;

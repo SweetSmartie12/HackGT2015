@@ -3,7 +3,9 @@ package com.gt.hackgt.gameobject;
 /**
  * Created by Lauren on 9/25/2015.
  */
+
 import com.badlogic.gdx.graphics.Texture;
+import com.gt.hackgt.codeinterpreter.DataObject;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -112,4 +114,11 @@ public abstract class GameObject implements KeyListener {
     }
 
     public abstract void keyPressed(KeyEvent e);
+
+    public void executeSystemCall(String function, DataObject arg1, DataObject arg2) {
+        // TODO(acalabrese): This doesn't do anything currently, you need to do something with this.
+        // I am thinking that we have a pseudo runnable function for each system call, and use the function string
+        // as a key into a map that gets us this system function. This would have the added benefit of forcing us to add
+        // the system call only if it is useful for the user. 
+    }
 }

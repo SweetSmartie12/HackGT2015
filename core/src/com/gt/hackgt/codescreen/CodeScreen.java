@@ -8,8 +8,7 @@ import com.gt.hackgt.HackGT;
  * Created by Lauren on 9/26/2015.
  */
 import com.badlogic.gdx.graphics.Texture;
-import com.gt.hackgt.blocks.BasicBlock;
-import com.gt.hackgt.blocks.UIBlock;
+import com.gt.hackgt.codeinterpreter.UIBlock;
 import com.gt.hackgt.utils.BasicScreen;
 
 import java.util.ArrayList;
@@ -17,7 +16,7 @@ import java.util.ArrayList;
 public class CodeScreen extends BasicScreen {
     Texture background;
     //TODO: More of LinkedList structure
-    //TODO: Visualization of blocks
+    //TODO: Visualization of codeinterpreter
     ArrayList<UIBlock> activeBlocks = new ArrayList<UIBlock>();
 
     public CodeScreen(HackGT game) {

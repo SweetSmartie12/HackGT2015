@@ -1,8 +1,10 @@
-package com.gt.hackgt.blocks;
+package com.gt.hackgt.codeinterpreter.blocks;
 
-import com.gt.hackgt.blocks.exceptions.IncompatibleTypesException;
-import com.gt.hackgt.blocks.exceptions.MissingBlockException;
-import com.gt.hackgt.blocks.exceptions.VariableDefinedException;
+import com.gt.hackgt.codeinterpreter.DataObject;
+import com.gt.hackgt.codeinterpreter.exceptions.IncompatibleTypesException;
+import com.gt.hackgt.codeinterpreter.exceptions.MissingBlockException;
+import com.gt.hackgt.codeinterpreter.exceptions.VariableDefinedException;
+import com.gt.hackgt.gameobject.GameObject;
 
 import java.util.Map;
 import java.util.Set;
@@ -13,7 +15,8 @@ import java.util.Set;
 public class IntAssignmentBlock extends BasicBlock {
     private String name;
 
-    public IntAssignmentBlock(String name) {
+    public IntAssignmentBlock(GameObject gameObject, String name) {
+        super(gameObject);
         this.name = name;
     }
 

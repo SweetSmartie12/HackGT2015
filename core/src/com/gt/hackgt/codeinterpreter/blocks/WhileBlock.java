@@ -1,20 +1,23 @@
-package com.gt.hackgt.blocks;
+package com.gt.hackgt.codeinterpreter.blocks;
 
-import com.gt.hackgt.blocks.exceptions.IncompatibleTypesException;
-import com.gt.hackgt.blocks.exceptions.MissingBlockException;
-import com.gt.hackgt.blocks.exceptions.VariableDefinedException;
+import com.gt.hackgt.codeinterpreter.BlockInterpreter;
+import com.gt.hackgt.codeinterpreter.DataObject;
+import com.gt.hackgt.codeinterpreter.exceptions.IncompatibleTypesException;
+import com.gt.hackgt.codeinterpreter.exceptions.MissingBlockException;
+import com.gt.hackgt.codeinterpreter.exceptions.VariableDefinedException;
+import com.gt.hackgt.gameobject.GameObject;
 
 import java.util.Map;
 import java.util.Set;
 
 /**
- * A block representing an if statement. Note here the internal block will be the conditional, and the second internal
- * block is the remaining code.
+ * Block that deals with while loops. Note internalBlock refers to the conditional, and secondInternalBlock refers to
+ * the loop.
  */
-public class IfBlock extends BasicBlock {
+public class WhileBlock extends BasicBlock {
 
-    public IfBlock() {
-
+    public WhileBlock(GameObject gameObject) {
+        super(gameObject);
     }
 
     @Override
@@ -32,10 +35,11 @@ public class IfBlock extends BasicBlock {
         if (conditional.getType() != DataObject.BOOLEAN_TYPE) {
             throw new IncompatibleTypesException();
         }
-        if (conditional.getBooleanData()) {
+        while (conditional.getBooleanData()) {
             BlockInterpreter interpreter =
                     new BlockInterpreter(secondInternalBlock, varsDefined, intVarMap, stringVarMap);
             interpreter.interpret();
+            conditional = internalBlock.execute(varsDefined, intVarMap, stringVarMap);
         }
         return null;
     }

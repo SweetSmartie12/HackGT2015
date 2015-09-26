@@ -1,8 +1,10 @@
-package com.gt.hackgt.blocks;
+package com.gt.hackgt.codeinterpreter.blocks;
 
-import com.gt.hackgt.blocks.exceptions.IncompatibleTypesException;
-import com.gt.hackgt.blocks.exceptions.MissingBlockException;
-import com.gt.hackgt.blocks.exceptions.VariableDefinedException;
+import com.gt.hackgt.codeinterpreter.DataObject;
+import com.gt.hackgt.codeinterpreter.exceptions.IncompatibleTypesException;
+import com.gt.hackgt.codeinterpreter.exceptions.MissingBlockException;
+import com.gt.hackgt.codeinterpreter.exceptions.VariableDefinedException;
+import com.gt.hackgt.gameobject.GameObject;
 
 import java.util.Map;
 import java.util.Set;
@@ -20,7 +22,8 @@ public class IntComparisonBlock extends BasicBlock {
 
     private int operator;
 
-    public IntComparisonBlock(int operator) {
+    public IntComparisonBlock(GameObject gameObject, int operator) {
+        super(gameObject);
         this.operator = operator;
     }
 

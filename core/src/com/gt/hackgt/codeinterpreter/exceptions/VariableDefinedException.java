@@ -1,4 +1,4 @@
-package com.gt.hackgt.blocks.exceptions;
+package com.gt.hackgt.codeinterpreter.exceptions;
 
 /**
  * An exception when a variable has been defined already.

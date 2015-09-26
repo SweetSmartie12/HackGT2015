@@ -4,9 +4,12 @@ package com.gt.hackgt.gameobject;
  * Created by Lauren on 9/25/2015.
  */
 import com.badlogic.gdx.graphics.Texture;
+
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.util.ArrayList;
 
-public abstract class GameObject {
+public abstract class GameObject implements KeyListener {
 
     //Could add more directions at some point.
     public enum Direction {
@@ -37,6 +40,10 @@ public abstract class GameObject {
 
     public void setTransparency(float transparency) {
         this.transparency = transparency;
+    }
+
+    public int getPriority() {
+        return drawPriority;
     }
 
     public void setYPosition(int y) {
@@ -89,4 +96,6 @@ public abstract class GameObject {
             xPosition += steps;
         }
     }
+
+    public abstract void keyPressed(KeyEvent e);
 }

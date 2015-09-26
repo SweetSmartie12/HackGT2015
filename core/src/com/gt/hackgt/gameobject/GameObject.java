@@ -16,6 +16,8 @@ import java.util.List;
 
 public class GameObject extends Actor {
 
+    private final static int SPEED = 5;
+
     private Texture texture;
     private float transparency;
 
@@ -54,35 +56,35 @@ public class GameObject extends Actor {
     }
 
     public void moveUp() {
-        if (getY() > 0) {
-            moveBy(0, -1);
+        if (getY() < gameHeight - getHeight()) {
+            moveBy(0, SPEED);
         }
     }
 
     public void moveDown() {
-        if (getY() < gameHeight) {
-            moveBy(0, 1);
+        if (getY() > 0) {
+            moveBy(0, -1 * SPEED);
         }
     }
 
     public void moveLeft() {
         if (getX() > 0) {
-            moveBy(-1, 0);
+            moveBy(-1 * SPEED, 0);
         }
     }
 
     public void moveRight() {
-        if (getX() < gameWidth) {
-            moveBy(1, 0);
+        if (getX() < gameWidth - getWidth()) {
+            moveBy(SPEED, 0);
         }
     }
 
     public void moveForward() {
-        move(1);
+        move(SPEED);
     }
 
     public void moveBackward() {
-        move(-1);
+        move(-1 * SPEED);
     }
 
     protected void move(int steps) {

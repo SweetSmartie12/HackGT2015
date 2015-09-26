@@ -21,11 +21,6 @@ public class IntAssignmentBlock extends BasicBlock {
     }
 
     @Override
-    public void draw() {
-
-    }
-
-    @Override
     public DataObject execute(Set<String> varsDefined, Map<String, Integer> intVarMap, Map<String, String> stringVarMap)
             throws VariableDefinedException, IncompatibleTypesException, MissingBlockException {
         // TODO(acalabrese): Do we care about already created values.

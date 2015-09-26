@@ -1,5 +1,8 @@
 package com.gt.hackgt.codeinterpreter.blocks;
 
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.gt.hackgt.codeinterpreter.DataObject;
 import com.gt.hackgt.codeinterpreter.exceptions.IncompatibleTypesException;
 import com.gt.hackgt.codeinterpreter.exceptions.MissingBlockException;
@@ -25,7 +28,13 @@ public abstract class BasicBlock {
         this.associatedObject = associatedObject;
     }
 
-    public abstract void draw();
+    public void draw(SpriteBatch batch, BitmapFont font) {
+        ShapeRenderer shapeRenderer = new ShapeRenderer();
+        shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
+        shapeRenderer.setColor(0f, 1f, 0f, 1f);
+        shapeRenderer.rect(xPosition, yPosition, width, height);
+        shapeRenderer.end();
+    }
 
     public abstract DataObject execute(Set<String> varsDefined, Map<String, Integer> intVarMap,
                                  Map<String, String> stringVarMap)
@@ -85,6 +94,22 @@ public abstract class BasicBlock {
 
     public BasicBlock getNextBlock() {
         return nextBlock;
+    }
+
+    public int getCenterTopX() {
+        return xPosition + (width / 2);
+    }
+
+    public int getCenterTopY() {
+        return yPosition + height;
+    }
+
+    public int getCenterBottomX() {
+        return xPosition + (width / 2);
+    }
+
+    public int getCenterBottomY() {
+        return yPosition;
     }
 
     public abstract String toString();

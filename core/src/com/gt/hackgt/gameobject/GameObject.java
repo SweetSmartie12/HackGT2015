@@ -119,6 +119,6 @@ public abstract class GameObject implements KeyListener {
         // TODO(acalabrese): This doesn't do anything currently, you need to do something with this.
         // I am thinking that we have a pseudo runnable function for each system call, and use the function string
         // as a key into a map that gets us this system function. This would have the added benefit of forcing us to add
-        // the system call only if it is useful for the user. 
+        // the system call only if it is useful for the user.
     }
 }

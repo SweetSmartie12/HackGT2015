@@ -2,10 +2,12 @@ package com.gt.hackgt;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.gt.hackgt.codescreen.CodeScreen;
+import com.gt.hackgt.codescreen.EditorScreen;
 import com.gt.hackgt.mainmenuscreen.MainMenuScreen;
 import com.gt.hackgt.splashscreen.SplashScreen;
-import com.gt.hackgt.codescreen.CodeScreen;
 
 public class HackGT extends Game {
     public final static int CAMERA_WIDTH = 640;
@@ -17,13 +19,17 @@ public class HackGT extends Game {
 
     public SpriteBatch batch;
     public OrthographicCamera camera;
+    public BitmapFont font;
 
     @Override
     public void create() {
         batch = new SpriteBatch();
         camera = new OrthographicCamera();
+        font = new BitmapFont();
+        font.setColor(0, 0, 0, 1);
         camera.setToOrtho(false, CAMERA_WIDTH, CAMERA_HEIGHT);
-        this.setScreen(new SplashScreen(this));
+        //this.setScreen(new SplashScreen(this));
+        this.setScreen(new EditorScreen(this));
     }
 
     @Override

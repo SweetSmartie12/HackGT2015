@@ -26,11 +26,6 @@ public class IntMathBlock extends BasicBlock {
     }
 
     @Override
-    public void draw() {
-
-    }
-
-    @Override
     public DataObject execute(Set<String> varsDefined, Map<String, Integer> intVarMap, Map<String, String> stringVarMap)
             throws VariableDefinedException, IncompatibleTypesException, MissingBlockException {
         if (secondInternalBlock == null || internalBlock == null) {

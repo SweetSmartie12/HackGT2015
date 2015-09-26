@@ -20,11 +20,6 @@ public class IntBlock extends BasicBlock {
     }
 
     @Override
-    public void draw() {
-
-    }
-
-    @Override
     public DataObject execute(Set<String> varsDefined, Map<String, Integer> intVarMap, Map<String, String> stringVarMap)
             throws VariableDefinedException, MissingBlockException {
         return new DataObject(value);

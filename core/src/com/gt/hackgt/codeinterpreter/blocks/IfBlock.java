@@ -1,5 +1,7 @@
 package com.gt.hackgt.codeinterpreter.blocks;
 
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.gt.hackgt.codeinterpreter.BlockInterpreter;
 import com.gt.hackgt.codeinterpreter.DataObject;
 import com.gt.hackgt.codeinterpreter.exceptions.IncompatibleTypesException;
@@ -21,11 +23,6 @@ public class IfBlock extends BasicBlock {
     }
 
     @Override
-    public void draw() {
-
-    }
-
-    @Override
     public DataObject execute(Set<String> varsDefined, Map<String, Integer> intVarMap, Map<String, String> stringVarMap)
             throws VariableDefinedException, IncompatibleTypesException, MissingBlockException {
         if (internalBlock == null || secondInternalBlock == null) {
@@ -41,6 +38,11 @@ public class IfBlock extends BasicBlock {
             interpreter.interpret();
         }
         return null;
+    }
+
+    @Override
+    public void draw(SpriteBatch batch, BitmapFont font) {
+        super.draw(batch, font);
     }
 
     @Override

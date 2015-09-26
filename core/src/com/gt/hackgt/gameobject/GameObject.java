@@ -20,6 +20,7 @@ public abstract class GameObject implements KeyListener {
     private float transparency;
     private int xPosition;
     private int yPosition;
+    private int stepSize;
 
     //The direction that the game object is facing
     private Direction direction;
@@ -79,7 +80,20 @@ public abstract class GameObject implements KeyListener {
     }
 
     //This is gonna depend on what each game object is. Or math.
-    public abstract void rotate(int degrees);
+    //Assume in simplest case that degrees can be 90, 180, or 270
+    public void rotate(int degrees) {
+        Direction[] rotationMatrix = {Direction.N, Direction.E, Direction.S, Direction.W};
+        int index = degrees / 90;
+        if (direction == Direction.N) {
+            direction = rotationMatrix[index];
+        } else if (direction == Direction.E) {
+            direction = rotationMatrix[(1 + index)%4];
+        } else if (direction == Direction.S) {
+            direction = rotationMatrix[(2 + index)%4];
+        } else if (direction == Direction.W) {
+            direction = rotationMatrix[(3 + index)%4];
+        }
+    }
 
     public void moveForward() {
         move(1);

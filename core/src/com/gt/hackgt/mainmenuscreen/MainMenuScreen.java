@@ -1,5 +1,7 @@
 package com.gt.hackgt.mainmenuscreen;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
 import com.gt.hackgt.HackGT;
 import com.gt.hackgt.utils.BasicScreen;
@@ -32,6 +34,9 @@ public class MainMenuScreen extends BasicScreen {
 
     @Override
     public void checkKeys() {
-
+        if (Gdx.input.isKeyPressed(Input.Keys.C)) {
+            game.switchScreen(HackGT.MAIN_MENU_SCREEN_NUMBER);
+            dispose();
+        }
     }
 }

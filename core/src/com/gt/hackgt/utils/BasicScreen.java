@@ -1,6 +1,7 @@
 package com.gt.hackgt.utils;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.gt.hackgt.HackGT;
@@ -8,12 +9,13 @@ import com.gt.hackgt.HackGT;
 /**
  * A basic screen all of the other screens should be based on.
  */
-public abstract class BasicScreen implements Screen {
+public abstract class BasicScreen implements Screen, InputProcessor {
 
     protected HackGT game;
 
     public BasicScreen(HackGT game) {
         this.game = game;
+        Gdx.input.setInputProcessor(this);
     }
 
     @Override
@@ -37,8 +39,6 @@ public abstract class BasicScreen implements Screen {
         game.batch.end();
 
         updateObjects();
-
-        checkKeys();
     }
 
     @Override
@@ -73,9 +73,4 @@ public abstract class BasicScreen implements Screen {
      * Called every frame to update the objects in the current screen.
      */
     public abstract void updateObjects();
-
-    /**
-     * Called every frame to poll and deal with key events.
-     */
-    public abstract void checkKeys();
 }

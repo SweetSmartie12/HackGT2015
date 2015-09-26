@@ -5,30 +5,19 @@ package com.gt.hackgt.gameobject;
  */
 
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.gt.hackgt.codeinterpreter.BlockInterpreter;
 import com.gt.hackgt.codeinterpreter.DataObject;
+import com.gt.hackgt.codeinterpreter.blocks.BasicBlock;
 
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.util.ArrayList;
+import java.util.List;
 
-public abstract class GameObject implements KeyListener {
-
-    //Could add more directions at some point.
-    public enum Direction {
-        N, S, E, W
-    }
+public class GameObject extends Actor {
 
     private Texture texture;
     private float transparency;
-    private int xPosition;
-    private int yPosition;
-    private int stepSize;
-
-    //The direction that the game object is facing
-    private Direction direction;
-
-    private int width;
-    private int height;
 
     //TODO: add actual references here, this is just temp
     int gameWidth = 640;
@@ -40,6 +29,21 @@ public abstract class GameObject implements KeyListener {
 
     private ArrayList<String> tags;
     private ArrayList<Object> additionalFields;
+    private List<BasicBlock> behaviors;
+
+    public GameObject() {
+        tags = new ArrayList<String>();
+        additionalFields = new ArrayList<Object>();
+        behaviors = new ArrayList<BasicBlock>();
+    }
+
+    public void addBehavior(BasicBlock block) {
+        behaviors.add(block);
+    }
+
+    public void setTexture(Texture texture) {
+        this.texture = texture;
+    }
 
     public void setTransparency(float transparency) {
         this.transparency = transparency;
@@ -49,51 +53,27 @@ public abstract class GameObject implements KeyListener {
         return drawPriority;
     }
 
-    public void setYPosition(int y) {
-        this.yPosition = y;
-    }
-
-    public void setXPosition(int x) {
-        this.xPosition = x;
-    }
-
     public void moveUp() {
-        if (this.yPosition > 0) {
-            this.yPosition--;
+        if (getY() > 0) {
+            moveBy(0, -1);
         }
     }
 
     public void moveDown() {
-        if (this.yPosition < gameHeight) {
-            this.yPosition++;
+        if (getY() < gameHeight) {
+            moveBy(0, 1);
         }
     }
 
     public void moveLeft() {
-        if (this.xPosition > 0) {
-            this.xPosition--;
+        if (getX() > 0) {
+            moveBy(-1, 0);
         }
     }
 
     public void moveRight() {
-        if (this.xPosition < gameWidth) {
-            this.xPosition++;
-        }
-    }
-
-    //This is gonna depend on what each game object is. Or math.
-    //Assume in simplest case that degrees can be 90, 180, or 270
-    public void rotate(int degrees) {
-        Direction[] rotationMatrix = {Direction.N, Direction.E, Direction.S, Direction.W};
-        int index = degrees / 90;
-        if (direction == Direction.N) {
-            direction = rotationMatrix[index];
-        } else if (direction == Direction.E) {
-            direction = rotationMatrix[(1 + index)%4];
-        } else if (direction == Direction.S) {
-            direction = rotationMatrix[(2 + index)%4];
-        } else if (direction == Direction.W) {
-            direction = rotationMatrix[(3 + index)%4];
+        if (getX() < gameWidth) {
+            moveBy(1, 0);
         }
     }
 
@@ -106,14 +86,25 @@ public abstract class GameObject implements KeyListener {
     }
 
     protected void move(int steps) {
-        if ((direction == Direction.N && yPosition > 0)|| (direction == Direction.S && yPosition < gameHeight)) {
-            yPosition += steps;
-        } else if ((direction == Direction.E && xPosition > 0) || (direction == Direction.W && xPosition < gameWidth)) {
-            xPosition += steps;
+        moveBy((float) (steps * Math.cos(getRotation())), (float) (steps * Math.sin(getRotation())));
+    }
+
+    @Override
+    public void draw(Batch batch, float alpha) {
+        super.draw(batch, alpha);
+        if (texture != null) {
+            batch.draw(texture, getX(), getY(), getWidth(), getHeight());
         }
     }
 
-    public abstract void keyPressed(KeyEvent e);
+    @Override
+    public void act(float f) {
+        super.act(f);
+        for (BasicBlock block : behaviors) {
+            BlockInterpreter interpreter = new BlockInterpreter(block);
+            interpreter.interpret();
+        }
+    }
 
     public void executeSystemCall(String function, DataObject arg1, DataObject arg2) {
         // TODO(acalabrese): This doesn't do anything currently, you need to do something with this.

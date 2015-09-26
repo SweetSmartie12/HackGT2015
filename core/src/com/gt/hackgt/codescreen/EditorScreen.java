@@ -1,6 +1,5 @@
 package com.gt.hackgt.codescreen;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.gt.hackgt.HackGT;
 import com.gt.hackgt.codeinterpreter.blocks.BasicBlock;
@@ -59,34 +58,6 @@ public class EditorScreen extends BasicScreen {
         }
     }
 
-    @Override
-    public void checkKeys() {
-        if (Gdx.input.isKeyPressed(Input.Keys.UP) && !wasPressed) {
-            BasicBlock current = startBlock;
-            if (current != null) {
-                while (current.getNextBlock() != null) {
-                    current = current.getNextBlock();
-                }
-                current.setNextBlock(new IfBlock(null));
-            } else {
-                startBlock = new IntAssignmentBlock(null, "A");
-            }
-
-            wasPressed = true;
-        } else if (Gdx.input.isKeyPressed(Input.Keys.DOWN) && !wasPressed) {
-            if (depth > 0) {
-                BasicBlock current = startBlock;
-                while (current.getNextBlock().getNextBlock() != null) {
-                    current = current.getNextBlock();
-                }
-                current.setNextBlock(null);
-                wasPressed = true;
-            }
-        } else if (!Gdx.input.isKeyPressed(Input.Keys.DOWN) && !Gdx.input.isKeyPressed(Input.Keys.UP)) {
-            wasPressed = false;
-        }
-    }
-
     /**
      * @returns the number of blocks in the current script.
      */
@@ -105,5 +76,70 @@ public class EditorScreen extends BasicScreen {
      */
     private int offsetCenter() {
         return (HackGT.CAMERA_HEIGHT / 2) - ((depth - 1) * (BLOCK_HEIGHT + BLOCK_SPACE)) / 2;
+    }
+
+    @Override
+    public boolean keyDown(int keycode) {
+        if (keycode == Input.Keys.UP && !wasPressed) {
+            BasicBlock current = startBlock;
+            if (current != null) {
+                while (current.getNextBlock() != null) {
+                    current = current.getNextBlock();
+                }
+                current.setNextBlock(new IfBlock(null));
+            } else {
+                startBlock = new IntAssignmentBlock(null, "A");
+            }
+
+            wasPressed = true;
+            return true;
+        } else if (keycode == Input.Keys.DOWN && !wasPressed) {
+            if (depth > 0) {
+                BasicBlock current = startBlock;
+                while (current.getNextBlock().getNextBlock() != null) {
+                    current = current.getNextBlock();
+                }
+                current.setNextBlock(null);
+                wasPressed = true;
+            }
+        } else if (keycode != Input.Keys.DOWN && keycode != Input.Keys.UP) {
+            wasPressed = false;
+        }
+        return false;
+    }
+
+    @Override
+    public boolean keyUp(int keycode) {
+        return false;
+    }
+
+    @Override
+    public boolean keyTyped(char character) {
+        return false;
+    }
+
+    @Override
+    public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+        return false;
+    }
+
+    @Override
+    public boolean touchUp(int screenX, int screenY, int pointer, int button) {
+        return false;
+    }
+
+    @Override
+    public boolean touchDragged(int screenX, int screenY, int pointer) {
+        return false;
+    }
+
+    @Override
+    public boolean mouseMoved(int screenX, int screenY) {
+        return false;
+    }
+
+    @Override
+    public boolean scrolled(int amount) {
+        return false;
     }
 }

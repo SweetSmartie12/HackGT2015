@@ -16,6 +16,7 @@ public abstract class BasicBlock {
     protected int yPosition;
     protected BasicBlock internalBlock;
     protected BasicBlock secondInternalBlock;
+    protected BasicBlock nextBlock;
 
     public abstract void draw();
 
@@ -69,6 +70,14 @@ public abstract class BasicBlock {
 
     public BasicBlock getSecondInternalBlock() {
         return secondInternalBlock;
+    }
+
+    public void setNextBlock(BasicBlock block) {
+        this.nextBlock = block;
+    }
+
+    public BasicBlock getNextBlock() {
+        return nextBlock;
     }
 
     public abstract String toString();

@@ -3,6 +3,7 @@ package com.gt.hackgt.codeinterpreter.blocks;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.gt.hackgt.codeinterpreter.DataObject;
 import com.gt.hackgt.codeinterpreter.exceptions.IncompatibleTypesException;
 import com.gt.hackgt.codeinterpreter.exceptions.MissingBlockException;
@@ -14,7 +15,7 @@ import java.util.*;
 /**
  * The basic building block of code.
  */
-public abstract class BasicBlock {
+public abstract class BasicBlock extends Actor{
     protected int width;
     protected int height;
     protected int xPosition;
@@ -24,7 +25,7 @@ public abstract class BasicBlock {
     protected BasicBlock nextBlock;
     protected GameObject associatedObject;
 
-    public BasicBlock(GameObject associatedObject) {
+    public BasicBlock(GameObject associatedObject){
         this.associatedObject = associatedObject;
     }
 
@@ -56,11 +57,11 @@ public abstract class BasicBlock {
         this.yPosition = y;
     }
 
-    public int getWidth() {
+    public float getWidth() {
         return width;
     }
 
-    public int getHeight() {
+    public float getHeight() {
         return height;
     }
 

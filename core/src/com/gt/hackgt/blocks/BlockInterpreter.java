@@ -51,4 +51,28 @@ public class BlockInterpreter {
             currentBlock = currentBlock.getNextBlock();
         }
     }
+
+    public static void main(String[] args) {
+        IntAssignmentBlock assign = new IntAssignmentBlock("A");
+        assign.setInternalBlock(new IntBlock(5));
+        IfBlock ifBlock = new IfBlock();
+        assign.setNextBlock(ifBlock);
+
+        IntComparisonBlock lessThan = new IntComparisonBlock(IntComparisonBlock.GREATER_THAN);
+        ifBlock.setInternalBlock(lessThan);
+        lessThan.setInternalBlock(new AccessBlock("A"));
+        lessThan.setSecondInternalBlock(new IntBlock(6));
+        IntAssignmentBlock assign2 = new IntAssignmentBlock("B");
+        assign2.setInternalBlock(new IntBlock(1));
+        ifBlock.setSecondInternalBlock(assign2);
+
+        Map<String, Integer> intMap = new HashMap<String, Integer>();
+
+        BlockInterpreter blockInterpreter = new BlockInterpreter(assign, new HashSet<String>(), intMap, new HashMap<String, String>());
+        blockInterpreter.interpret();
+
+        for (String s : intMap.keySet()) {
+            System.out.println(s + " : " + intMap.get(s));
+        }
+    }
 }

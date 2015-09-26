@@ -1,20 +1,28 @@
-package com.gt.hackgt.splashscreen;
+package com.gt.hackgt.codescreen;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.graphics.Texture;
 import com.gt.hackgt.HackGT;
-import com.gt.hackgt.utils.BasicScreen;
 
 /**
- * Basic Splash/Title screen for the game itself.
+ * Created by Lauren on 9/26/2015.
  */
-public class SplashScreen extends BasicScreen {
-    private Texture background;
+import com.badlogic.gdx.graphics.Texture;
+import com.gt.hackgt.blocks.BasicBlock;
+import com.gt.hackgt.blocks.UIBlock;
+import com.gt.hackgt.utils.BasicScreen;
 
-    public SplashScreen(HackGT game) {
+import java.util.ArrayList;
+
+public class CodeScreen extends BasicScreen {
+    Texture background;
+    //TODO: More of LinkedList structure
+    //TODO: Visualization of blocks
+    ArrayList<UIBlock> activeBlocks = new ArrayList<UIBlock>();
+
+    public CodeScreen(HackGT game) {
         super(game);
-        background = new Texture("splashscreen/TitleBackground.png");
+        background = new Texture("mainmenuscreen/MainMenuBackground.png");
     }
 
     @Override
@@ -33,12 +41,7 @@ public class SplashScreen extends BasicScreen {
             game.switchScreen(HackGT.MAIN_MENU_SCREEN_NUMBER);
             dispose();
         }
-        if (Gdx.input.isKeyPressed(Input.Keys.C)) {
-            game.switchScreen(HackGT.MAIN_MENU_SCREEN_NUMBER);
-            dispose();
-        }
     }
-
     @Override
     public void dispose() {
         background.dispose();

@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.gt.hackgt.mainmenuscreen.MainMenuScreen;
 import com.gt.hackgt.splashscreen.SplashScreen;
+import com.gt.hackgt.codescreen.CodeScreen;
 
 public class HackGT extends Game {
     public final static int CAMERA_WIDTH = 640;
@@ -12,6 +13,7 @@ public class HackGT extends Game {
 
     public final static int SPLASH_SCREEN_NUMBER = 1;
     public final static int MAIN_MENU_SCREEN_NUMBER = 2;
+    public final static int CODE_SCREEN_NUMBER = 3;
 
     public SpriteBatch batch;
     public OrthographicCamera camera;
@@ -46,6 +48,10 @@ public class HackGT extends Game {
 
             case HackGT.MAIN_MENU_SCREEN_NUMBER:
                 setScreen(new MainMenuScreen(this));
+                break;
+
+            case HackGT.CODE_SCREEN_NUMBER:
+                setScreen(new CodeScreen(this));
                 break;
         }
     }

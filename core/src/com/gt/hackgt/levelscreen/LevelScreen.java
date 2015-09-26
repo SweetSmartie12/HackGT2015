@@ -17,6 +17,8 @@ import java.util.List;
  * Represents a singular level in the game.
  */
 public class LevelScreen extends BasicScreen {
+    public final static int PLAYGROUND_WIDTH = 450;
+    public final static int PLAYGROUND_HEIGHT = 480;
 
     private Stage stage;
     private GameObject playerObject;
@@ -42,7 +44,7 @@ public class LevelScreen extends BasicScreen {
     private void loadBackground() {
         background = new GameObject();
         background.setTexture(new Texture("levelscreen/background.jpg"));
-        background.setSize(stage.getWidth(), stage.getHeight());
+        background.setSize(PLAYGROUND_WIDTH, stage.getHeight());
         stage.addActor(background);
         background.toBack();
     }

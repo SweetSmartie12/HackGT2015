@@ -10,6 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.gt.hackgt.codeinterpreter.BlockInterpreter;
 import com.gt.hackgt.codeinterpreter.DataObject;
 import com.gt.hackgt.codeinterpreter.blocks.BasicBlock;
+import com.gt.hackgt.levelscreen.LevelScreen;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,8 +23,8 @@ public class GameObject extends Actor {
     private float transparency;
 
     //TODO: add actual references here, this is just temp
-    int gameWidth = 640;
-    int gameHeight = 480;
+    private int gameWidth = LevelScreen.PLAYGROUND_WIDTH;
+    private int gameHeight = LevelScreen.PLAYGROUND_HEIGHT;
 
     private String name;
 
@@ -58,24 +59,32 @@ public class GameObject extends Actor {
     public void moveUp() {
         if (getY() < gameHeight - getHeight()) {
             moveBy(0, SPEED);
+        } else {
+            setY(gameHeight - getHeight());
         }
     }
 
     public void moveDown() {
         if (getY() > 0) {
             moveBy(0, -1 * SPEED);
+        } else {
+            setY(0);
         }
     }
 
     public void moveLeft() {
-        if (getX() > 0) {
+        if (getX() - SPEED > 0) {
             moveBy(-1 * SPEED, 0);
+        } else {
+            setX(0);
         }
     }
 
     public void moveRight() {
-        if (getX() < gameWidth - getWidth()) {
+        if (getX() + SPEED < gameWidth - getWidth()) {
             moveBy(SPEED, 0);
+        } else {
+            setX(gameWidth - getWidth());
         }
     }
 
